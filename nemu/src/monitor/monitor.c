@@ -54,7 +54,7 @@ static void init_ramdisk() {
 
 	fseek(fp, 0, SEEK_END);
 	long file_size = ftell(fp);
-	Assert(file_size < ramdisk_max_size, "file size(%zd) too large", file_size);
+	Assert(file_size < ramdisk_max_size, "file size(%ld) too large", file_size);
 
 	fseek(fp, 0, SEEK_SET);
 	ret = fread(hwa_to_va(0), file_size, 1, fp);
