@@ -8,6 +8,7 @@
 #include <readline/history.h>
 
 void cpu_exec(uint32_t);
+void exec_wrapper(void);
 
 /* We use the `readline' library to provide more flexibility to read from stdin. */
 char* rl_gets() {
@@ -40,6 +41,7 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
 	//ready to implement
+	exec_wrapper();
 	return 0;
 }
 
@@ -50,6 +52,7 @@ static int cmd_x(char *args) {
 
 static int cmd_info(char* args) {
 	//ready to implement
+	
 	return 0;
 }
 static struct {
