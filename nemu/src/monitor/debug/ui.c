@@ -60,7 +60,11 @@ static int print_r(char *args) {
 
 static int cmd_info(char* args) {
 	//ready to implement
-	print_r("all");
+	char *arg = strtok(NULL, " ");
+	char *cmd = strstr("register", arg);
+	if(arg == cmd){
+		print_r("all");
+	}
 	return 0;
 }
 static struct {
