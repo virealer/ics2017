@@ -64,8 +64,14 @@ static int cmd_info(char* args) {
 	//ready to implement
 	char *arg = strtok(NULL, " ");
 	printf("%s", arg);
-	/*
 	char *cmd = strstr("register", arg);
+	if(cmd != NULL){
+		printf("%s", cmd);
+	}
+	else{
+		printf("%s", "NULL");
+	}
+	/*
 	if(arg == cmd){
 		print_r("all");
 	}
