@@ -61,7 +61,7 @@ static int cmd_x(char *args) {
 	addr_start = strtol(addr, NULL, 16);
 	for(; len_num>0; len_num--){	
 		printf("0x%x:\t%x\n", addr_start, swaddr_read(addr_start, width));
-		addr_start += width * 8;
+		addr_start += width;
 	}
 	puts("");
 	return 0;
