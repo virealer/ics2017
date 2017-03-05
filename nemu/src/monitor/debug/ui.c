@@ -47,6 +47,19 @@ static int cmd_si(char *args) {
 
 static int cmd_x(char *args) {
 	//ready to implement
+	char *arg = strtok(NULL, " ");
+	char *subarg = strtok(NULL, " ");
+	unsigned int len;
+	if(subarg==NULL){ 
+		len = 4;
+	}
+	else{
+		len = atoi(subarg);
+	}
+	if(arg != subarg){}
+	if(len != 4){}
+	//for(; len>0; len--)
+	//printf("0x%x", swaddr_read());	
 	return 0;
 }
 
