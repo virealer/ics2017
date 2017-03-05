@@ -50,6 +50,7 @@ static int cmd_x(char *args) {
 	return 0;
 }
 
+/*
 static int print_r(char *args) {
 	//print register info
 	if(strcmp(args, "all") == 0){
@@ -57,16 +58,19 @@ static int print_r(char *args) {
 	}
 	return 0;
 }
-
+*/
 
 static int cmd_info(char* args) {
 	//ready to implement
 	char *arg = strtok(NULL, " ");
+	printf("%s", arg);
+	/*
 	char *cmd = strstr("register", arg);
 	if(arg == cmd){
 		print_r("all");
 	}
 	printf("%s\n%s\n", arg, cmd);
+	*/
 	return 0;
 }
 static struct {
