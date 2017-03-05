@@ -50,29 +50,30 @@ static int cmd_x(char *args) {
 	return 0;
 }
 
-/*
-static int print_r(char *args) {
+static int print_r(int reg) {
 	//print register info
-	if(strcmp(args, "all") == 0){
-		printf("%s\t%x\t%d\n", "eax", cpu.eax, cpu.eax);
+	if(reg == -1){
+		int i;
+		for(i=0; i<8; i++){
+			printf("%s\t\t%x\t%d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+		}
+		printf("%s\t\t%x\t%d\n", "eip", cpu.eip, cpu.eip);
 	}
 	return 0;
 }
-*/
 
 static int cmd_info(char* args) {
 	//ready to implement
 	char *arg = strtok(NULL, " ");
-	printf("arg: %p\n", arg);
-	char *cstr = "register";
-	char *cmd = strstr(cstr, arg);
-	printf("cstr: %p\n", cstr);
-	if(cmd != NULL){
-		printf("cmd: %p\n", cmd);
+	char *cmd_name = "register";
+	char *cmd = strstr(cmd_name, arg);
+	if(cmd == cmd_name){
+		char *subarg = strtok(NULL, " ");
+		if(subarg == NULL){
+			print_r(-1);
+		}			
 	}
-	else{
-		printf("%s\n", "NULL");
-	}
+
 	/*
 	if(arg == cmd){
 		print_r("all");
