@@ -72,6 +72,9 @@ static int cmd_info(char* args) {
 		if(subarg == NULL){
 			print_r(-1);
 		}			
+		else{
+			puts("Not Implemented yet");
+		}
 	}
 
 	/*
