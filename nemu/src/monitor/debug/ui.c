@@ -66,7 +66,7 @@ static int cmd_info(char* args) {
 	if(arg == cmd){
 		print_r("all");
 	}
-	puts("opps");
+	printf("%s\n%s\n", arg, cmd);
 	return 0;
 }
 static struct {
