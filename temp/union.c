@@ -10,6 +10,8 @@ struct test{
 };
 int main(){
 	struct test t1={1, 2, 3, 4};
+	int a=10;
+	char* s = "hello world";
 	printf("%d\n", sizeof(t1)); 
 	printf("%d, %d, %d, %d, %d", t1.a, t1.b, t1.c, t1.d, t1.e);
 	printf("%d\n", sizeof(int));
