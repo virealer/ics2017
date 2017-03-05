@@ -57,7 +57,7 @@ static int print_r(int reg) {
 		for(i=0; i<8; i++){
 			printf("%s\t\t0x%x\t%d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
 		}
-		printf("%s\t\t0x%x\t\t%d\n", "eip", cpu.eip, cpu.eip);
+		printf("%s\t\t0x%x\t%d\n", "eip", cpu.eip, cpu.eip);
 	}
 	return 0;
 }
