@@ -67,7 +67,7 @@ static int cmd_x(char *args) {
 	len_num = atoi(len);
 	addr_start = strtol(addr, NULL, 16);
 	for(; len_num>0; len_num--){	
-		printf("0x%04x:\t0x%04x\n", addr_start, swaddr_read(addr_start, width));
+		printf("0x%016x:\t0x%016x\n", addr_start, swaddr_read(addr_start, width));
 		addr_start += width;
 	}
 	puts("");
