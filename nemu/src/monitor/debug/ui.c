@@ -66,8 +66,22 @@ static int cmd_x(char *args) {
 	swaddr_t addr_start;
 	len_num = atoi(len);
 	addr_start = strtol(addr, NULL, 16);
+	char* format;
+	switch(width){
+		case 1:
+			format = "0x%06x:\t0x%02x\n";
+			break;
+		case 2:
+			format = "0x%06x:\t0x%04x\n";
+            break;
+        case 4:
+            format = "0x%06x:\t0x%08x\n";
+            break;
+		default:
+			format = "0x%06x:\t0x%08x\n";
+	}
 	for(; len_num>0; len_num--){	
-		printf("0x%016x:\t0x%016x\n", addr_start, swaddr_read(addr_start, width));
+		printf(format, addr_start, swaddr_read(addr_start, width));
 		addr_start += width;
 	}
 	puts("");
