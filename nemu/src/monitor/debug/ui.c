@@ -54,13 +54,20 @@ static int cmd_si(char *args) {
 static int cmd_x(char *args) {
 	char *len = strtok(NULL, " ");
 	char *addr = strtok(NULL, " ");
-	unsigned int width = 4;
+	char *w = strtok(NULL, " ");
+	unsigned int width;
+	if(w == NULL){
+		width = 4;
+	}
+	else{
+		width = atoi(w);
+	}
 	int len_num;
 	swaddr_t addr_start;
 	len_num = atoi(len);
 	addr_start = strtol(addr, NULL, 16);
 	for(; len_num>0; len_num--){	
-		printf("0x%x:\t%x\n", addr_start, swaddr_read(addr_start, width));
+		printf("0x%x:\t0x%x\n", addr_start, swaddr_read(addr_start, width));
 		addr_start += width;
 	}
 	puts("");
