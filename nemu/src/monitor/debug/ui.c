@@ -103,6 +103,10 @@ static int print_r(int reg) {
 static int cmd_info(char* args) {
 	//ready to implement
 	char *arg = strtok(NULL, " ");
+	if(arg == NULL){
+		arg = "r";
+		puts("Need a parameter, Use register for default");
+	}
 	char *cmd_name = "register";
 	char *cmd = strstr(cmd_name, arg);
 	if(cmd == cmd_name){
