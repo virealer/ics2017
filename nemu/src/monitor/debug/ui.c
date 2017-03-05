@@ -63,10 +63,12 @@ static int print_r(char *args) {
 static int cmd_info(char* args) {
 	//ready to implement
 	char *arg = strtok(NULL, " ");
-	printf("%p\n", arg);
-	char *cmd = strstr("register", arg);
+	printf("arg: %p\n", arg);
+	char *cstr = "register";
+	char *cmd = strstr(cstr, arg);
+	printf("cstr: %p\n", cstr);
 	if(cmd != NULL){
-		printf("%p\n", cmd);
+		printf("cmd: %p\n", cmd);
 	}
 	else{
 		printf("%s\n", "NULL");
