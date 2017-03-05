@@ -75,7 +75,7 @@ static int cmd_x(char *args) {
 	len_num = atoi(len);
 	addr_start = htoi(addr);
 	for(; len_num>0; len_num--){	
-		printf("%x:\t%x", addr_start, swaddr_read(addr_start, width));
+		printf("0x%x:\t%x\n", addr_start, swaddr_read(addr_start, width));
 		addr_start += width * 8;
 	}
 	puts("");
