@@ -41,7 +41,11 @@ static int cmd_help(char *args);
 
 static int cmd_si(char *args) {
 	//maybe this is not right
-	exec_wrapper();
+	char *arg = strtok(NULL, " ");
+	int i = atoi(arg);
+	for(; i>0; i--){
+		exec_wrapper();
+	}
 	return 0;
 }
 
