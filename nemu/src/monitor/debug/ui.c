@@ -67,7 +67,7 @@ static int cmd_x(char *args) {
 	len_num = atoi(len);
 	addr_start = strtol(addr, NULL, 16);
 	for(; len_num>0; len_num--){	
-		printf("0x%x:\t0x%x\n", addr_start, swaddr_read(addr_start, width));
+		printf("0x%0x:\t0x%0x\n", addr_start, swaddr_read(addr_start, width));
 		addr_start += width;
 	}
 	puts("");
@@ -79,9 +79,9 @@ static int print_r(int reg) {
 	if(reg == -1){
 		int i;
 		for(i=0; i<8; i++){
-			printf("%s\t\t0x%x\t%d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
+			printf("%s\t\t0x%0x\t%0d\n", regsl[i], cpu.gpr[i]._32, cpu.gpr[i]._32);
 		}
-		printf("%s\t\t0x%x\t%d\n", "eip", cpu.eip, cpu.eip);
+		printf("%s\t\t0x%0x\t%0d\n", "eip", cpu.eip, cpu.eip);
 	}
 	return 0;
 }
