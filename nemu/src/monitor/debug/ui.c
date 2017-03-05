@@ -52,8 +52,9 @@ static int cmd_x(char *args) {
 
 static int print_r(char *args) {
 	//print register info
-	if(strcmp(args, "all") == 0)
-	printf("%s\t%x\t%d\n", "eax", cpu.eax, cpu.eax);
+	if(strcmp(args, "all") == 0){
+		printf("%s\t%x\t%d\n", "eax", cpu.eax, cpu.eax);
+	}
 	return 0;
 }
 
@@ -65,6 +66,7 @@ static int cmd_info(char* args) {
 	if(arg == cmd){
 		print_r("all");
 	}
+	puts("opps");
 	return 0;
 }
 static struct {
