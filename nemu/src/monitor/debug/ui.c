@@ -45,27 +45,6 @@ static int cmd_si(char *args) {
 	return 0;
 }
 
-unsigned int htoi (const char *ptr){
-	unsigned int value = 0;
-	char ch = *ptr;
-
-    while (ch == ' ' || ch == '\t')
-        ch = *(++ptr);
-
-    for (;;) {
-
-        if (ch >= '0' && ch <= '9')
-            value = (value << 4) + (ch - '0');
-        else if (ch >= 'A' && ch <= 'F')
-            value = (value << 4) + (ch - 'A' + 10);
-        else if (ch >= 'a' && ch <= 'f')
-            value = (value << 4) + (ch - 'a' + 10);
-        else
-            return value;
-        ch = *(++ptr);
-    }
-}
-
 static int cmd_x(char *args) {
 	char *len = strtok(NULL, " ");
 	char *addr = strtok(NULL, " ");
@@ -73,7 +52,7 @@ static int cmd_x(char *args) {
 	int len_num;
 	swaddr_t addr_start;
 	len_num = atoi(len);
-	addr_start = atoi(addr);
+	addr_start = strtol(addr, NULL, 16);
 	for(; len_num>0; len_num--){	
 		printf("0x%x:\t%x\n", addr_start, swaddr_read(addr_start, width));
 		addr_start += width * 8;
