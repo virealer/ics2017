@@ -56,6 +56,7 @@ static int cmd_x(char *args) {
 	else{
 		len = atoi(subarg);
 	}
+	printf("%s\n%s\n", arg, subarg);
 	if(arg != subarg){}
 	if(len != 4){}
 	//for(; len>0; len--)
