@@ -73,7 +73,7 @@ static int cmd_x(char *args) {
 	int len_num;
 	swaddr_t addr_start;
 	len_num = atoi(len);
-	addr_start = htoi(addr);
+	addr_start = atoi(addr);
 	for(; len_num>0; len_num--){	
 		printf("0x%x:\t%x\n", addr_start, swaddr_read(addr_start, width));
 		addr_start += width * 8;
@@ -109,12 +109,6 @@ static int cmd_info(char* args) {
 		}
 	}
 
-	/*
-	if(arg == cmd){
-		print_r("all");
-	}
-	printf("%s\n%s\n", arg, cmd);
-	*/
 	return 0;
 }
 static struct {
