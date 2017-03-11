@@ -157,7 +157,7 @@ static int get_dominant_op(int p, int q){
 			case '/':
 				if(in_parentheses)
 					break;
-				if (get_priority(tokens[p].type)>tem.type) {
+				if (get_priority(tokens[p].type)>get_priority(tem.type)) {
 					break;
 				}
 				else{
