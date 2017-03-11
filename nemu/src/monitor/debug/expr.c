@@ -148,7 +148,7 @@ static int get_dominant_op(int p, int q){
 	bool in_parentheses = false;
 	int stack=0;
 	Token tem = {9999, "init"};
-	while(p<q){
+	while(p<=q){
 //		if(tokens[p].type == LB)
 		switch(tokens[p].type){
 			case '+':
