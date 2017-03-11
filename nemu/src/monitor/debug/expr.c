@@ -83,7 +83,13 @@ static bool make_token(char *e) {
 				 */
 
 				switch(rules[i].token_type) {
-					default: TODO();
+					case 0:
+						break;
+					default:
+						tokens[nr_token].type = rules[i].token_type;
+						strncpy(tokens[nr_token].str, substr_start, substr_len);
+						nr_token++;
+						break;
 				}
 
 				break;
@@ -99,6 +105,11 @@ static bool make_token(char *e) {
 	return true;
 }
 
+static int eval(p, q){
+	printf("%d, %d\n", p, q);
+	return 0;
+}
+
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
 		*success = false;
@@ -106,7 +117,8 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-	TODO();
+	eval(0, nr_token);
+//	TODO();
 
 	return 0;
 }
