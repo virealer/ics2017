@@ -150,47 +150,37 @@ static int get_dominant_op(int p, int q){
 	bool in_parentheses = false;
 	int stack=0;
 	Token tem = {9999, "init"};
-	bool loop = true;
+//	bool loop = true;
 	while(p<=q){
 //		if(tokens[p].type == LB)
-		
+		p++;
 		switch(tokens[p].type){
 			case NUM:
-				p++;
-				loop = false;
 				break;
 			case '+':
 			case '-':
 			case '*':
 			case '/':
 				if(in_parentheses)
-					p++;
 					break;
 				if (get_priority(tokens[p].type)>get_priority(tem.type)) {
-					p++;
 					break;
 				}
 				tem = tokens[p];
 				pos = p;
-				p++;
 				break;
 			case LB:
 				stack+=1;
 				in_parentheses=true;
-				p++;
 				break;
 			case RB:
 				stack-=1;
 				if(stack==0)
 					in_parentheses=false;
-				p++;
 				break;
 			default:
-				p++;
 				break;
 		}
-		if(!loop)
-			break;
 	}
 	return pos;
 }
