@@ -150,8 +150,10 @@ static int get_dominant_op(int p, int q){
 	bool in_parentheses = false;
 	int stack=0;
 	Token tem = {9999, "init"};
+	bool loop = true;
 	while(p<=q){
 //		if(tokens[p].type == LB)
+		
 		switch(tokens[p].type){
 			case NUM:
 				p++;
@@ -186,6 +188,8 @@ static int get_dominant_op(int p, int q){
 				p++;
 				break;
 		}
+		if(!loop)
+			break;
 	}
 	return pos;
 }
@@ -236,6 +240,7 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
+	puts("hello");
 	printf("%d\n", get_dominant_op(0, nr_token-1));
 	/* TODO: Insert codes to evaluate the expression. */
 	printf("%d\n", eval(0, nr_token-1));
