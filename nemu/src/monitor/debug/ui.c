@@ -123,8 +123,12 @@ static int cmd_info(char* args) {
 }
 
 static int cmd_p(char* args) {
-	char *arg = strtok(NULL, " ");
-	puts(arg);
+//	char *arg = strtok(NULL, " ");
+//	while(arg != NULL){
+//		printf(arg);
+//		char *arg = strtok(NULL, " ");
+//	}
+	puts(args);
 	return 0;
 }
 
