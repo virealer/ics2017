@@ -157,6 +157,7 @@ static int get_dominant_op(int p, int q){
 		switch(tokens[p].type){
 			case NUM:
 				p++;
+				loop = false;
 				break;
 			case '+':
 			case '-':
