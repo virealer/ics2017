@@ -228,11 +228,9 @@ uint32_t expr(char *e, bool *success) {
 		*success = false;
 		return 0;
 	}
-	puts("hello");
-	printf("%d\n", get_dominant_op(0, nr_token-1));
 	/* TODO: Insert codes to evaluate the expression. */
+	//	TODO();
 	printf("%d\n", eval(0, nr_token-1));
-//	TODO();
-//	printf("%s\n", check_parentheses(0, nr_token-1)?"True":"False");
+
 	return 0;
 }
