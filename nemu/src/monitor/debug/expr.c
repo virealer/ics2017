@@ -129,6 +129,100 @@ static bool check_parentheses(p, q){
 	return true;
 }
 
+static int get_priority(int type){
+	switch(type){
+		case '+':
+		case '-':
+			return 0;
+		case '*':
+		case '/':
+			return 1;
+		case 9999:
+			return 9999;
+	}
+	return 0;
+}
+
+static int get_dominant_op(int p, int q){
+	int pos=p;
+	bool in_parentheses = false;
+	int stack=0;
+	Token tem = {9999, "init"};
+	while(p<q){
+//		if(tokens[p].type == LB)
+		switch(tokens[p].type){
+			case '+':
+			case '-':
+			case '*':
+			case '/':
+				if(in_parentheses)
+					continue;
+				if (get_priority(tokens[p].type)>tem.type) {
+					continue;
+				}
+				tem = tokens[p];
+				pos = p;
+				p++;
+				break;
+			case LB:
+				stack+=1;
+				in_parentheses=true;
+				p++;
+				break;
+			case RB:
+				stack-=1;
+				if(stack==0)
+					in_parentheses=false;
+				p++;
+				break;
+			default:
+				p++;
+				break;
+		}
+	}
+	return pos;
+}
+
+static int eval(int p, int q) {
+	if(p > q) {
+		/* Bad expression */
+		return 0;
+	}
+	else if(p == q) { 
+		/* Single token.
+		 * For now this token should be a number. 
+		 * Return the value of the number.
+		 */ 
+		if(tokens[p].type != NUM){
+			assert(0);
+			return 0;
+		}
+		int n = atoi(tokens[p].str);
+		return n;
+	}
+	else if(check_parentheses(p, q) == true) {
+		/* The expression is surrounded by a matched pair of parentheses. 
+		 * If that is the case, just throw away the parentheses.
+		 */
+		return eval(p + 1, q - 1); 
+	}
+	else {
+		/* We should do more things here. */
+//		op = the position of dominant operator in the token expression;
+		int op = get_dominant_op(p, q);
+		int val1 = eval(p, op - 1);
+		int val2 = eval(op + 1, q);
+
+		switch(op) {
+			case '+': return val1 + val2;
+			case '-': return val1 - val2;
+			case '*': return val1 * val2;
+			case '/': return val1 / val2;
+			default: assert(0);
+		}
+	}
+}
+
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
@@ -137,8 +231,8 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-//	eval(0, nr_token-1);
+	printf("%d\n", eval(0, nr_token-1));
 //	TODO();
-	printf("%s\n", check_parentheses(0, nr_token-1)?"True":"False");
+//	printf("%s\n", check_parentheses(0, nr_token-1)?"True":"False");
 	return 0;
 }
