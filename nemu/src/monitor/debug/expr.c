@@ -139,8 +139,10 @@ static int get_priority(int type){
 			return 1;
 		case 9999:
 			return 9999;
+		default:
+			return 1000;
 	}
-	return 0;
+	return 1000;
 }
 
 static int get_dominant_op(int p, int q){
