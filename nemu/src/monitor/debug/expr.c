@@ -156,9 +156,9 @@ static int get_dominant_op(int p, int q){
 			case '*':
 			case '/':
 				if(in_parentheses)
-					continue;
+					break;
 				if (get_priority(tokens[p].type)>tem.type) {
-					continue;
+					break;
 				}
 				else{
 					tem = tokens[p];
