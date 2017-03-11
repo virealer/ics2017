@@ -121,6 +121,13 @@ static int cmd_info(char* args) {
 
 	return 0;
 }
+
+static int cmd_p(char* args) {
+	char *arg = strtok(NULL, " ");
+	puts(arg);
+	return 0;
+}
+
 static struct {
 	char *name;
 	char *description;
@@ -131,7 +138,8 @@ static struct {
 	{ "q", "Exit NEMU", cmd_q },
 	{ "si", "Single step", cmd_si },
 	{ "x", "Read memory", cmd_x },
-	{ "info", "Print register", cmd_info},	
+	{ "info", "Print register", cmd_info},
+	{ "p", "Print and calculate the Expression value", cmd_p}	
 	/* TODO: Add more commands */
 
 };
