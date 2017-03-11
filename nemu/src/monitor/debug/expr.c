@@ -177,6 +177,9 @@ static int get_dominant_op(int p, int q){
 					in_parentheses=false;
 				p++;
 				break;
+			case NUM:
+				p++;
+				break;
 			default:
 				p++;
 				break;
