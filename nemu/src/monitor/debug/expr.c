@@ -153,6 +153,9 @@ static int get_dominant_op(int p, int q){
 	while(p<=q){
 //		if(tokens[p].type == LB)
 		switch(tokens[p].type){
+			case NUM:
+				p++;
+				break;
 			case '+':
 			case '-':
 			case '*':
@@ -177,9 +180,6 @@ static int get_dominant_op(int p, int q){
 				stack-=1;
 				if(stack==0)
 					in_parentheses=false;
-				p++;
-				break;
-			case NUM:
 				p++;
 				break;
 			default:
