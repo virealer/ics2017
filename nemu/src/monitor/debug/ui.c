@@ -123,7 +123,9 @@ static int cmd_info(char* args) {
 }
 
 static int cmd_p(char* args) {
-	puts(args);
+//	puts(args);
+	bool* success = false;
+	expr(args, success);
 	return 0;
 }
 
