@@ -162,11 +162,9 @@ static int get_dominant_op(int p, int q){
 					p++;
 					break;
 				}
-				else{
-					tem = tokens[p];
-					pos = p;
-					p++;
-				}
+				tem = tokens[p];
+				pos = p;
+				p++;
 				break;
 			case LB:
 				stack+=1;
