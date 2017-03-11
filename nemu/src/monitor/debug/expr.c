@@ -28,7 +28,7 @@ static struct rule {
 	{"-", '-'},						// minus
 	{"\\*", '*'},					// multiply
 	{"/", '/'},						// devide
-	{"\\s+", '0'}   				// int
+	{"\\d{1,32}", '0'}   				// int
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
