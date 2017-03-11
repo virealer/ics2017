@@ -151,9 +151,8 @@ static int get_dominant_op(int p, int q){
 	int stack=0;
 	Token tem = {9999, "init"};
 //	bool loop = true;
-	while(p<q){
+	while(p<=q){
 //		if(tokens[p].type == LB)
-		p++;
 		switch(tokens[p].type){
 			case NUM:
 				break;
@@ -181,6 +180,7 @@ static int get_dominant_op(int p, int q){
 			default:
 				break;
 		}
+		p++;
 	}
 	return pos;
 }
