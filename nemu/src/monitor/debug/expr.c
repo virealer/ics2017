@@ -116,11 +116,15 @@ static bool check_parentheses(p, q){
 	while (p<q) {
 		if (tokens[p].type == LB) {
 			i++;
+			p++;
 		}
-		if (tokens[p].type == RB) {
+		else if (tokens[p].type == RB) {
 			i--;
+			p++;
 			if(i<1) return false;
 		}
+		else
+			p++;
 	}
 	return true;
 }
