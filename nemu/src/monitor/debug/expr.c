@@ -160,9 +160,11 @@ static int get_dominant_op(int p, int q){
 				if (get_priority(tokens[p].type)>tem.type) {
 					continue;
 				}
-				tem = tokens[p];
-				pos = p;
-				p++;
+				else{
+					tem = tokens[p];
+					pos = p;
+					p++;
+				}
 				break;
 			case LB:
 				stack+=1;
