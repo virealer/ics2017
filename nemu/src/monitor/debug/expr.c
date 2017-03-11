@@ -5,9 +5,10 @@
  */
 #include <sys/types.h>
 #include <regex.h>
+#include <stdlib.h>
 
 enum {
-	NOTYPE = 256, EQ
+	NOTYPE = 256, EQ, NUM, LB, RB
 
 	/* TODO: Add more token types */
 
@@ -28,9 +29,9 @@ static struct rule {
 	{"-", '-'},						// minus
 	{"\\*", '*'},					// multiply
 	{"/", '/'},						// devide
-	{"[0-9]+", '0'},   				// int
-	{"\\(", '('}, 					// left bracket
-	{"\\)", ')'},						// right bracket
+	{"[0-9]+", NUM},   				// int
+	{"\\(", LB}, 					// left bracket
+	{"\\)", RB},						// right bracket
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -108,10 +109,22 @@ static bool make_token(char *e) {
 	return true;
 }
 
-static int eval(p, q){
-	printf("%d, %d\n", p, q);
-	return 0;
+static bool check_parentheses(p, q){
+	if((tokens[p].type != LB) || (tokens[q].type != RB))
+		return false;
+	int i = 0;
+	while (p<q) {
+		if (tokens[p].type == LB) {
+			i++;
+		}
+		if (tokens[p].type == RB) {
+			i--;
+			if(i<1) return false;
+		}
+	}
+	return true;
 }
+
 
 uint32_t expr(char *e, bool *success) {
 	if(!make_token(e)) {
@@ -120,8 +133,8 @@ uint32_t expr(char *e, bool *success) {
 	}
 
 	/* TODO: Insert codes to evaluate the expression. */
-	eval(0, nr_token);
+//	eval(0, nr_token-1);
 //	TODO();
-
+	printf("%s\n", check_parentheses(0, nr_token-1)?"True":"False");
 	return 0;
 }
