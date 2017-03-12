@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, LB, RB
+	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT
 
 	/* TODO: Add more token types */
 
@@ -31,7 +31,11 @@ static struct rule {
 	{"/", '/'},						// devide
 	{"[0-9]+", NUM},   				// int
 	{"\\(", LB}, 					// left bracket
-	{"\\)", RB},						// right bracket
+	{"\\)", RB},					// right bracket
+	{"!=", NEQ},					// not equal
+	{"&&", AND},					// and
+	{"||", OR},						// or
+	{"!", NOT},						// not
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
