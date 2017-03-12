@@ -137,8 +137,6 @@ static int get_priority(int type){
 		case '*':
 		case '/':
 			return 1;
-		case 9999:
-			return 9999;
 		default:
 			return 1000;
 	}
@@ -163,10 +161,6 @@ static int get_dominant_op(int p, int q){
 				if(stack==0)
 					in_parentheses=false;
 				break;
-//			case '+':
-//			case '-':
-//			case '*':
-//			case '/':
 			default:
 				if(in_parentheses)
 					break;
