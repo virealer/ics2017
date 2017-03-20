@@ -208,12 +208,20 @@ static int eval(int p, int q) {
 		 * For now this token should be a number. 
 		 * Return the value of the number.
 		 */ 
-		if(tokens[p].type != NUM){
-//			 assert(0);
-			return 0;
+		switch (tokens[p].type) {
+			case EAX: return cpu.eax;
+			case EBX: return cpu.ebx;
+			case ECX: return cpu.ecx;
+			case EDX: return cpu.edx;
+			case NUM: return atoi(tokens[p].str);
+			default: return 0;
 		}
-		int n = atoi(tokens[p].str);
-		return n;
+//		if(tokens[p].type != NUM){
+//			 assert(0);
+//			return 0;
+//		}
+//		int n = atoi(tokens[p].str);
+//		return n;
 	}
 	else if(check_parentheses(p, q) == true) {
 		/* The expression is surrounded by a matched pair of parentheses. 
@@ -225,12 +233,6 @@ static int eval(int p, int q) {
 		/* We should do more things here. */
 //		op = the position of dominant operator in the token expression;
 		int op = get_dominant_op(p, q);
-		switch (tokens[op].type) {
-			case EAX: return cpu.eax;
-			case EBX: return cpu.ebx;
-			case ECX: return cpu.ecx;
-			case EDX: return cpu.edx;
-		}
 		if(tokens[op].type == NOT){
 			int val = eval(op+1, q);
 			return !val;
