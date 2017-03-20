@@ -268,7 +268,7 @@ static int eval(int p, int q) {
 		}
 		switch (tokens[op].type) {
 			case NOT: return !eval(op+1, q);
-			case DEREF: return swaddr_read(eval(op+1, q), 4);
+			case DEREF: return swaddr_read(eval(op+1, q), 1);
 		}
 			
 			
