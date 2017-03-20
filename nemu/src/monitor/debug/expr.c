@@ -23,7 +23,7 @@ static struct rule {
 	/* TODO: Add more rules.
 	 * Pay attention to the precedence level of different rules.
 	 */
-
+	{"0x[0-9a-fA_F]{0,8}", HEX},         // hex
 	{" +",	NOTYPE},					// spaces
 	{"\\+", '+'},						// plus
 	{"==", EQ},							// equal
@@ -45,7 +45,7 @@ static struct rule {
 	{"\\$ebx", ESI},					// esi
 	{"\\$ecx", EDI},					// edi
 	{"\\$edx", ESP},					// esp
-	{"0x[0-9a-fA_F]{0,8}", HEX}         // hex
+	
 
 };
 
