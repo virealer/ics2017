@@ -32,10 +32,10 @@ static struct rule {
 	{"[0-9]+", NUM},   				// int
 	{"\\(", LB}, 					// left bracket
 	{"\\)", RB},					// right bracket
-	{"!=", NEQ},					// not equal
+	{"\\!=", NEQ},					// not equal
 	{"&&", AND},					// and
 	{"||", OR},						// or
-	{"!", NOT},						// not
+	{"\\!", NOT},					// not
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -135,12 +135,21 @@ static bool check_parentheses(p, q){
 
 static int get_priority(int type){
 	switch(type){
+		case OR:
+			return 0;
+		case AND:
+			return 1;
+		case EQ:
+		case NEQ:
+			return 2;
 		case '+':
 		case '-':
-			return 0;
+			return 3;
 		case '*':
 		case '/':
-			return 1;
+			return 4;
+		case NOT:
+			return 5;
 		default:
 			return 1000;
 	}
@@ -191,7 +200,7 @@ static int eval(int p, int q) {
 		 * Return the value of the number.
 		 */ 
 		if(tokens[p].type != NUM){
-			assert(0);
+//			 assert(0);
 			return 0;
 		}
 		int n = atoi(tokens[p].str);
@@ -207,6 +216,12 @@ static int eval(int p, int q) {
 		/* We should do more things here. */
 //		op = the position of dominant operator in the token expression;
 		int op = get_dominant_op(p, q);
+		if(tokens[op].type == NOT){
+			int val = eval(op+1, q);
+			return !val;
+		}
+			
+			
 		int val1 = eval(p, op - 1);
 		int val2 = eval(op + 1, q);
 
@@ -215,6 +230,10 @@ static int eval(int p, int q) {
 			case '-': return val1 - val2;
 			case '*': return val1 * val2;
 			case '/': return val1 / val2;
+			case OR: return val1 || val2;
+			case EQ: return val1 == val2;
+			case NEQ: return val1 != val2;
+			case AND: return val1 && val2;
 			default: assert(0);
 		}
 	}
