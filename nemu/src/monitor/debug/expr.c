@@ -34,7 +34,7 @@ static struct rule {
 	{"\\)", RB},					// right bracket
 	{"\\!=", NEQ},					// not equal
 	{"&&", AND},					// and
-	{"||", OR},						// or
+	{"\\|\\|", OR},						// or
 	{"\\!", NOT},					// not
 };
 
