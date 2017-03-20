@@ -126,8 +126,16 @@ static int cmd_info(char* args) {
 
 static int cmd_p(char* args) {
 //	puts(args);
+	uint32_t result;
 	bool* success = false;
-	expr(args, success);
+	result = expr(args, success);
+	printf("%d\n", result);
+	return 0;
+}
+
+int add_wp(char* args);
+static int cmd_watch(char* args){
+	add_wp(args);
 	return 0;
 }
 
@@ -142,7 +150,8 @@ static struct {
 	{ "si", "Single step", cmd_si },
 	{ "x", "Read memory", cmd_x },
 	{ "info", "Print register", cmd_info},
-	{ "p", "Print and calculate the Expression value", cmd_p}	
+	{ "p", "Print and calculate the Expression value", cmd_p},
+	{ "w", "Watch Point", cmd_watch}	
 	/* TODO: Add more commands */
 
 };

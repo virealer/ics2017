@@ -2,9 +2,12 @@
 #include "monitor/expr.h"
 
 #define NR_WP 32
+#define MAX_LEN 128
 
 static WP wp_pool[NR_WP];
 static WP *head, *free_;
+
+uint32_t expr(char *e, bool *success);
 
 void init_wp_pool() {
 	int i;
@@ -17,6 +20,51 @@ void init_wp_pool() {
 	head = NULL;
 	free_ = wp_pool;
 }
+
+WP* new_wp(){
+	WP* tmp=NULL;
+	if(free_){
+		tmp = free_;
+		free_ = free_->next;
+				
+	}
+	else{
+		assert(0);
+	}
+	return tmp;
+}
+
+int add_wp(char* args){
+	WP* next = new_wp();
+	if(!head){
+			head = next;
+	}
+	else if(!next){
+//		next.expr
+		strncpy(next->expr, args, MAX_LEN);
+		bool* success = false;
+		next->pre_val = expr(args, success);
+		next->next = head->next;
+		head->next = next;
+	}
+	return 0;
+}
+
+bool check_wp(){
+	WP* tem = head;
+	int new_val = 0;
+	bool* success = false;
+	while(tem){
+		new_val = expr(tem->expr, success);
+		if(new_val != tem->pre_val){
+			tem->pre_val = new_val;
+			return false;
+		} 
+		tem = tem->next;
+	}
+	return true;
+}
+
 
 /* TODO: Implement the functionality of watchpoint */
 

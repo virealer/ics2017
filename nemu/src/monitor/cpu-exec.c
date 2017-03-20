@@ -10,6 +10,7 @@
 #define MAX_INSTR_TO_PRINT 10
 
 int nemu_state = STOP;
+bool check_wp();
 
 void exec_wrapper(void);
 
@@ -47,7 +48,9 @@ void cpu_exec(uint32_t n) {
 		}
 
 		/* TODO: check watchpoints here. */
-
+		if(!check_wp()){
+			nemu_state = STOP;
+		}
 #endif
 
 #ifdef HAS_DEVICE
