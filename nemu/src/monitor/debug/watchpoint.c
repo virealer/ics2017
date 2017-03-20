@@ -57,6 +57,7 @@ bool check_wp(){
 	while(tem){
 		new_val = expr(tem->expr, success);
 		if(new_val != tem->pre_val){
+			printf("pre:%d\nnew:%d\n", tem->pre_val, new_val);
 			tem->pre_val = new_val;
 			return false;
 		} 
