@@ -36,10 +36,10 @@ static struct rule {
 	{"&&", AND},					// and
 	{"\\|\\|", OR},					// or
 	{"\\!", NOT},					// not
-	{"$eax", EAX},					// eax
-	{"$ebx", EBX},					// ebx
-	{"$ecx", ECX},					// ecx
-	{"$edx", EDX},					// edx
+	{"\\$eax", EAX},					// eax
+	{"\\$ebx", EBX},					// ebx
+	{"\\$ecx", ECX},					// ecx
+	{"\\$edx", EDX},					// edx
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
