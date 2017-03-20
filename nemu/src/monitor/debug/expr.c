@@ -7,8 +7,9 @@
 #include <regex.h>
 #include <stdlib.h>
 
+
 enum {
-	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT, EAX, EBX, ECX, EDX
+	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT, EAX, EBX, ECX, EDX, EBP, ESI, EDI, ESP, DEREF
 
 	/* TODO: Add more token types */
 
@@ -40,6 +41,11 @@ static struct rule {
 	{"\\$ebx", EBX},					// ebx
 	{"\\$ecx", ECX},					// ecx
 	{"\\$edx", EDX},					// edx
+	{"\\$eax", EBP},					// ebp
+	{"\\$ebx", ESI},					// esi
+	{"\\$ecx", EDI},					// edi
+	{"\\$edx", ESP},					// esp
+
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -158,6 +164,10 @@ static int get_priority(int type){
 		case EBX:
 		case ECX:
 		case EDX:
+		case EBP:
+		case ESI:
+		case EDI:
+		case ESP:
 			return 6;
 		default:
 			return 1000;
@@ -198,6 +208,16 @@ static int get_dominant_op(int p, int q){
 	return pos;
 }
 
+static int read_memory(char* addr_str, int width){
+//	if(!width){
+//		width = 4;
+//	}
+	swaddr_t addr;
+	addr = strtol(addr_str, NULL, 16);
+	return swaddr_read(addr, width);
+}
+
+
 static int eval(int p, int q) {
 	if(p > q) {
 		/* Bad expression */
@@ -213,7 +233,12 @@ static int eval(int p, int q) {
 			case EBX: return cpu.ebx;
 			case ECX: return cpu.ecx;
 			case EDX: return cpu.edx;
+			case EBP: return cpu.ebp;
+			case ESI: return cpu.esi;
+			case EDI: return cpu.edi;
+			case ESP: return cpu.esp;
 			case NUM: return atoi(tokens[p].str);
+			case DEREF: return read_memory(tokens[p].str, 4);
 			default: return 0;
 		}
 //		if(tokens[p].type != NUM){
@@ -264,6 +289,20 @@ uint32_t expr(char *e, bool *success) {
 	}
 	/* TODO: Insert codes to evaluate the expression. */
 	//	TODO();
+	int i;
+	for(i=0; i<nr_token; i++){
+		if(tokens[i].type == '*' && (i==0 || 
+					tokens[i-1].type == '+' || 
+					tokens[i-1].type == '-' || 
+					tokens[i-1].type == '*' ||
+					tokens[i-1].type == '/' || 
+					(tokens[i-1].type > NUM && (tokens[i-1].type < EAX))
+					)
+					){
+			tokens[i].type = DEREF;
+		}
+	}
+	
 	printf("%d\n", eval(0, nr_token-1));
 
 	return 0;

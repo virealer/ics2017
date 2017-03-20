@@ -51,6 +51,8 @@ static int cmd_si(char *args) {
 	return 0;
 }
 
+
+
 static int cmd_x(char *args) {
 	char *len = strtok(NULL, " ");
 	char *addr = strtok(NULL, " ");
