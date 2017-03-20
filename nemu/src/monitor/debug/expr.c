@@ -225,6 +225,12 @@ static int eval(int p, int q) {
 		/* We should do more things here. */
 //		op = the position of dominant operator in the token expression;
 		int op = get_dominant_op(p, q);
+		switch (tokens[op].type) {
+			case EAX: return cpu.eax;
+			case EBX: return cpu.ebx;
+			case ECX: return cpu.ecx;
+			case EDX: return cpu.edx;
+		}
 		if(tokens[op].type == NOT){
 			int val = eval(op+1, q);
 			return !val;
@@ -243,10 +249,6 @@ static int eval(int p, int q) {
 			case EQ: return val1 == val2;
 			case NEQ: return val1 != val2;
 			case AND: return val1 && val2;
-			case EAX: return cpu.eax;
-			case EBX: return cpu.ebx;
-			case ECX: return cpu.ecx;
-			case EDX: return cpu.edx;
 			default: assert(0);
 		}
 	}
