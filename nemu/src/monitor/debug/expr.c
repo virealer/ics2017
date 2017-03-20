@@ -8,7 +8,7 @@
 #include <stdlib.h>
 
 enum {
-	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT
+	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT, EAX, EBX, ECX, EDX
 
 	/* TODO: Add more token types */
 
@@ -34,8 +34,12 @@ static struct rule {
 	{"\\)", RB},					// right bracket
 	{"\\!=", NEQ},					// not equal
 	{"&&", AND},					// and
-	{"\\|\\|", OR},						// or
+	{"\\|\\|", OR},					// or
 	{"\\!", NOT},					// not
+	{"$eax", EAX},					// eax
+	{"$ebx", EBX},					// ebx
+	{"$ecx", ECX},					// ecx
+	{"$edx", EDX},					// edx
 };
 
 #define NR_REGEX (sizeof(rules) / sizeof(rules[0]) )
@@ -150,6 +154,11 @@ static int get_priority(int type){
 			return 4;
 		case NOT:
 			return 5;
+		case EAX:
+		case EBX:
+		case ECX:
+		case EDX:
+			return 6;
 		default:
 			return 1000;
 	}
@@ -234,6 +243,10 @@ static int eval(int p, int q) {
 			case EQ: return val1 == val2;
 			case NEQ: return val1 != val2;
 			case AND: return val1 && val2;
+			case EAX: return cpu.eax;
+			case EBX: return cpu.ebx;
+			case ECX: return cpu.ecx;
+			case EDX: return cpu.edx;
 			default: assert(0);
 		}
 	}
