@@ -9,7 +9,7 @@
 
 
 enum {
-	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT, EAX, EBX, ECX, EDX, EBP, ESI, EDI, ESP, DEREF
+	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT, EAX, EBX, ECX, EDX, EBP, ESI, EDI, ESP, DEREF, HEX
 
 	/* TODO: Add more token types */
 
@@ -24,19 +24,19 @@ static struct rule {
 	 * Pay attention to the precedence level of different rules.
 	 */
 
-	{" +",	NOTYPE},				// spaces
-	{"\\+", '+'},					// plus
-	{"==", EQ},						// equal
-	{"-", '-'},						// minus
-	{"\\*", '*'},					// multiply
-	{"/", '/'},						// devide
-	{"[0-9]+", NUM},   				// int
-	{"\\(", LB}, 					// left bracket
-	{"\\)", RB},					// right bracket
-	{"\\!=", NEQ},					// not equal
-	{"&&", AND},					// and
-	{"\\|\\|", OR},					// or
-	{"\\!", NOT},					// not
+	{" +",	NOTYPE},					// spaces
+	{"\\+", '+'},						// plus
+	{"==", EQ},							// equal
+	{"-", '-'},							// minus
+	{"\\*", '*'},						// multiply
+	{"/", '/'},							// devide
+	{"[0-9]+", NUM},   					// int
+	{"\\(", LB}, 						// left bracket
+	{"\\)", RB},						// right bracket
+	{"\\!=", NEQ},						// not equal
+	{"&&", AND},						// and
+	{"\\|\\|", OR},						// or
+	{"\\!", NOT},						// not
 	{"\\$eax", EAX},					// eax
 	{"\\$ebx", EBX},					// ebx
 	{"\\$ecx", ECX},					// ecx
@@ -45,6 +45,7 @@ static struct rule {
 	{"\\$ebx", ESI},					// esi
 	{"\\$ecx", EDI},					// edi
 	{"\\$edx", ESP},					// esp
+	{"0x[0-9a-fA_F]{0,8}", HEX}         // hex
 
 };
 
@@ -160,6 +161,8 @@ static int get_priority(int type){
 			return 4;
 		case NOT:
 			return 5;
+		case DEREF:
+			return 6;
 		case EAX:
 		case EBX:
 		case ECX:
@@ -168,7 +171,8 @@ static int get_priority(int type){
 		case ESI:
 		case EDI:
 		case ESP:
-			return 6;
+		case HEX:
+			return 7;
 		default:
 			return 1000;
 	}
@@ -208,14 +212,14 @@ static int get_dominant_op(int p, int q){
 	return pos;
 }
 
-static int read_memory(char* addr_str, int width){
-//	if(!width){
-//		width = 4;
-//	}
-	swaddr_t addr;
-	addr = strtol(addr_str, NULL, 16);
-	return swaddr_read(addr, width);
-}
+//static int read_memory(char* addr_str, int width){
+////	if(!width){
+////		width = 4;
+////	}
+//	swaddr_t addr;
+//	addr = strtol(addr_str, NULL, 16);
+//	return swaddr_read(addr, width);
+//}
 
 
 static int eval(int p, int q) {
@@ -238,7 +242,7 @@ static int eval(int p, int q) {
 			case EDI: return cpu.edi;
 			case ESP: return cpu.esp;
 			case NUM: return atoi(tokens[p].str);
-			case DEREF: return read_memory(tokens[p].str, 4);
+			case HEX: return strtol(tokens[p].str, NULL, 16);
 			default: return 0;
 		}
 //		if(tokens[p].type != NUM){
@@ -261,6 +265,10 @@ static int eval(int p, int q) {
 		if(tokens[op].type == NOT){
 			int val = eval(op+1, q);
 			return !val;
+		}
+		switch (tokens[op].type) {
+			case NOT: return !eval(op+1, q);
+			case DEREF: return swaddr_read(eval(op+1, q), 4);
 		}
 			
 			
