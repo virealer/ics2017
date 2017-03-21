@@ -9,7 +9,7 @@
 
 
 enum {
-	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT, EAX, EBX, ECX, EDX, EBP, ESI, EDI, ESP, DEREF, HEX
+	NOTYPE = 256, EQ, NUM, LB, RB, NEQ, AND, OR, NOT, EAX, EBX, ECX, EDX, EBP, ESI, EDI, ESP, DEREF, HEX, EIP,
 
 	/* TODO: Add more token types */
 
@@ -45,6 +45,7 @@ static struct rule {
 	{"\\$ebx", ESI},					// esi
 	{"\\$ecx", EDI},					// edi
 	{"\\$edx", ESP},					// esp
+	{"\\$eip", EIP},					// eip
 	
 
 };
@@ -172,6 +173,7 @@ static int get_priority(int type){
 		case EDI:
 		case ESP:
 		case HEX:
+		case EIP:
 			return 7;
 		default:
 			return 1000;
@@ -241,6 +243,7 @@ static int eval(int p, int q) {
 			case ESI: return cpu.esi;
 			case EDI: return cpu.edi;
 			case ESP: return cpu.esp;
+			case EIP: return cpu.eip;
 			case NUM: return atoi(tokens[p].str);
 			case HEX: return strtol(tokens[p].str, NULL, 16);
 			default: return 0;
