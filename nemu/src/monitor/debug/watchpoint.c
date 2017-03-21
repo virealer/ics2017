@@ -42,7 +42,7 @@ int add_wp(char* args){
 			bool* success = false;
 			next->pre_val = expr(args, success);
 	}
-	else if(!next){
+	else if(next){
 //		next.expr
 		strncpy(next->expr, args, MAX_LEN);
 		bool* success = false;
