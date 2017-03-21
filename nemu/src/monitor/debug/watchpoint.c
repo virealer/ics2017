@@ -63,7 +63,7 @@ bool check_wp(){
 		} 
 		tem = tem->next;
 	}
-	printf("pre:%d\nnew:%d\n", tem->pre_val, new_val);
+	printf("new:%d\n", new_val);
 	return true;
 }
 
