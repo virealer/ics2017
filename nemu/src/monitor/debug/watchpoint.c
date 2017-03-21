@@ -55,22 +55,35 @@ int add_wp(char* args){
 	return 0;
 }
 
+int inspect(){
+	WP* tem = head;
+	bool* success = false;
+	int new_val = 0;
+	while (tem) {
+		new_val = expr(tem->expr, success);
+		printf("pre:%d\nnew:%d\n", tem->pre_val, new_val);
+		tem = tem->next;
+	}
+	return 0;
+}
+
 bool check_wp(){
 	WP* tem = head;
 	int new_val = 0;
 	bool* success = false;
+	bool result = false;
 	while(tem){
 		new_val = expr(tem->expr, success);
 		if(new_val != tem->pre_val){
 			printf("pre:%d\nnew:%d\n", tem->pre_val, new_val);
 			tem->pre_val = new_val;
-			return false;
+			result = true;
 		} 
 		tem = tem->next;
 	};
 	tem = tem->next;
 //	printf("new:%d\n", new_val);
-	return true;
+	return result;
 }
 
 

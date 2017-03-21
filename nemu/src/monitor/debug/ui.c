@@ -101,7 +101,7 @@ static int print_r(int reg) {
 	}
 	return 0;
 }
-
+int inspect();
 static int cmd_info(char* args) {
 	//ready to implement
 	char *arg = strtok(NULL, " ");
@@ -119,6 +119,9 @@ static int cmd_info(char* args) {
 		else{
 			puts("Not Implemented yet");
 		}
+	}
+	if(strcmp(cmd, "w") == 0){
+		inspect();
 	}
 
 	return 0;
