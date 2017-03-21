@@ -38,6 +38,9 @@ int add_wp(char* args){
 	WP* next = new_wp();
 	if(!head){
 			head = next;
+			strncpy(next->expr, args, MAX_LEN);
+			bool* success = false;
+			next->pre_val = expr(args, success);
 	}
 	else if(!next){
 //		next.expr
@@ -47,6 +50,7 @@ int add_wp(char* args){
 		next->next = head->next;
 		head->next = next;
 	}
+	printf("%s\n", next->expr);
 	return 0;
 }
 
