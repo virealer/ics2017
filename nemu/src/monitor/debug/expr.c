@@ -41,10 +41,10 @@ static struct rule {
 	{"\\$ebx", EBX},					// ebx
 	{"\\$ecx", ECX},					// ecx
 	{"\\$edx", EDX},					// edx
-	{"\\$eax", EBP},					// ebp
-	{"\\$ebx", ESI},					// esi
-	{"\\$ecx", EDI},					// edi
-	{"\\$edx", ESP},					// esp
+	{"\\$ebp", EBP},					// ebp
+	{"\\$esi", ESI},					// esi
+	{"\\$edi", EDI},					// edi
+	{"\\$esp", ESP},					// esp
 	{"\\$eip", EIP},					// eip
 	
 
