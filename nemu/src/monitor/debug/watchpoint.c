@@ -54,15 +54,22 @@ bool check_wp(){
 	WP* tem = head;
 	int new_val = 0;
 	bool* success = false;
-	do {
-		new_val = expr(tem->expr, success);
-		if(new_val != tem->pre_val){
-			printf("pre:%d\nnew:%d\n", tem->pre_val, new_val);
-			tem->pre_val = new_val;
-			return false;
-		} 
-		tem = tem->next;
-	}while(tem);
+//	do {
+//		new_val = expr(tem->expr, success);
+//		if(new_val != tem->pre_val){
+//			printf("pre:%d\nnew:%d\n", tem->pre_val, new_val);
+//			tem->pre_val = new_val;
+//			return false;
+//		} 
+//		tem = tem->next;
+//	}while(tem);
+	new_val = expr(tem->expr, success);
+	if(new_val != tem->pre_val){
+		printf("pre:%d\nnew:%d\n", tem->pre_val, new_val);
+		tem->pre_val = new_val;
+		return false;
+	} 
+	tem = tem->next;
 	printf("new:%d\n", new_val);
 	return true;
 }
