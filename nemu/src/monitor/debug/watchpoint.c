@@ -42,11 +42,12 @@ int add_wp(char* args){
 			bool* success = false;
 			next->pre_val = expr(args, success);
 	}
-	else if(next){
+	else {
 //		next.expr
 		strncpy(next->expr, args, MAX_LEN);
 		bool* success = false;
 		next->pre_val = expr(args, success);
+		
 		next->next = head->next;
 		head->next = next;
 	}
@@ -68,7 +69,7 @@ bool check_wp(){
 		tem = tem->next;
 	};
 	tem = tem->next;
-	printf("new:%d\n", new_val);
+//	printf("new:%d\n", new_val);
 	return true;
 }
 
